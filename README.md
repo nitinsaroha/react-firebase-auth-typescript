@@ -9,6 +9,7 @@
   * React Context API
   * ESlint
   * Prettier
+  * TypeScript
 
 * Features:
 
