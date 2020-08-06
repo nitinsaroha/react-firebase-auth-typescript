@@ -33,3 +33,6 @@
   * `cp .env-sample.txt .env`
 * yarn start
 * Visit localhost:3000
+
+
+Based on Robin Wieruch [Article](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial)
