@@ -14,11 +14,13 @@ const config = {
 
 class Firebase {
   auth: firebase.auth.Auth;
+  db: firebase.firestore.Firestore;
 
   constructor() {
     firebase.initializeApp(config);
 
     this.auth = firebase.auth();
+    this.db = firebase.firestore();
   }
 
   // *** Auth API ***
@@ -34,6 +36,10 @@ class Firebase {
 
   doPasswordUpdate = (password: string) =>
     this.auth.currentUser?.updatePassword(password);
+
+  user = (uid: string) => this.db.collection('users').doc(uid);
+
+  users = () => this.db.collection('users');
 }
 
 export default Firebase;
