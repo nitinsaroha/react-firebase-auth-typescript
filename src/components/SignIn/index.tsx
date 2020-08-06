@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
- 
+
 import { SignUpLink } from '../SignUp';
+import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
@@ -10,17 +11,18 @@ const SignInPage = () => (
   <div>
     <h1>SignIn</h1>
     <SignInForm />
+    <PasswordForgetLink />
     <SignUpLink />
   </div>
 );
 
 interface State {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
   error: {
-    message: string
-  } | null,
-};
+    message: string;
+  } | null;
+}
 
 const INITIAL_STATE: State = {
   email: '',
@@ -29,7 +31,7 @@ const INITIAL_STATE: State = {
 };
 
 class SignInFormBase extends Component<any, State> {
-  constructor(props: any){
+  constructor(props: any) {
     super(props);
 
     this.state = { ...INITIAL_STATE };
@@ -37,7 +39,7 @@ class SignInFormBase extends Component<any, State> {
 
   onSubmit = (event: any) => {
     const { email, password } = this.state;
- 
+
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
@@ -47,7 +49,7 @@ class SignInFormBase extends Component<any, State> {
       .catch((error: any) => {
         this.setState({ error });
       });
- 
+
     event.preventDefault();
   };
 
@@ -57,9 +59,9 @@ class SignInFormBase extends Component<any, State> {
 
   render() {
     const { email, password, error } = this.state;
- 
+
     const isInvalid = password === '' || email === '';
- 
+
     return (
       <form onSubmit={this.onSubmit}>
         <input
@@ -79,18 +81,15 @@ class SignInFormBase extends Component<any, State> {
         <button disabled={isInvalid} type="submit">
           Sign In
         </button>
- 
+
         {error && <p>{error.message}</p>}
       </form>
     );
   }
 }
 
-const SignInForm = compose(
-  withRouter,
-  withFirebase,
-)(SignInFormBase);
+const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
 
 export default SignInPage;
 
-export {SignInForm};
+export { SignInForm };

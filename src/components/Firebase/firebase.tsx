@@ -1,6 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 // TODO Add .env.development and .env.production for two different env. Need to create two different projects on firebase
 const config = {
@@ -14,6 +14,7 @@ const config = {
 
 class Firebase {
   auth: firebase.auth.Auth;
+
   constructor() {
     firebase.initializeApp(config);
 
@@ -27,13 +28,9 @@ class Firebase {
   doSignInWithEmailAndPassword = (email: string, password: string) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
-  doSignOut = () => {
-    console.log("Inside SignOut");
-    return this.auth.signOut();
-  }
+  doSignOut = () => this.auth.signOut();
 
-  doPasswordReset = (email: string) =>
-    this.auth.sendPasswordResetEmail(email);
+  doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
 
   doPasswordUpdate = (password: string) =>
     this.auth.currentUser?.updatePassword(password);
