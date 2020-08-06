@@ -44,12 +44,10 @@ class SignUpFormBase extends Component<any, State> {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser: any) => {
         // Create a user in your Firebase Firestore Database
-        return this.props.firebase
-          .user(authUser.user.uid)
-          .set({
-            username: username,
-            email: email,
-          });
+        return this.props.firebase.user(authUser.user.uid).set({
+          username,
+          email,
+        });
       })
       .then((authUser: any) => {
         this.setState({ ...INITIAL_STATE });

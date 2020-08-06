@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
- 
+
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
@@ -12,19 +12,19 @@ const PasswordForgetPage = () => (
 );
 
 type IPasswordForgetState = {
-  email: string,
+  email: string;
   error: {
-    message: string
-  } | null,
+    message: string;
+  } | null;
 };
 
 const INITIAL_STATE = {
-  email : '',
+  email: '',
   error: null,
 };
 
 class PasswordForgetFormBase extends Component<any, IPasswordForgetState> {
-  constructor(props: any){
+  constructor(props: any) {
     super(props);
 
     this.state = { ...INITIAL_STATE };
@@ -32,7 +32,7 @@ class PasswordForgetFormBase extends Component<any, IPasswordForgetState> {
 
   onSubmit = (event: any) => {
     const { email } = this.state;
- 
+
     this.props.firebase
       .doPasswordReset(email)
       .then(() => {
@@ -41,19 +41,21 @@ class PasswordForgetFormBase extends Component<any, IPasswordForgetState> {
       .catch((error: any) => {
         this.setState({ error });
       });
- 
+
     event.preventDefault();
   };
- 
+
   onChange = (event: any) => {
-    this.setState({ [event.target.name]: event.target.value } as IPasswordForgetState);
+    this.setState({
+      [event.target.name]: event.target.value,
+    } as IPasswordForgetState);
   };
 
   render() {
     const { email, error } = this.state;
- 
+
     const isInvalid = email === '';
- 
+
     return (
       <form onSubmit={this.onSubmit}>
         <input
@@ -66,7 +68,7 @@ class PasswordForgetFormBase extends Component<any, IPasswordForgetState> {
         <button disabled={isInvalid} type="submit">
           Reset My Password
         </button>
- 
+
         {error && <p>{error.message}</p>}
       </form>
     );

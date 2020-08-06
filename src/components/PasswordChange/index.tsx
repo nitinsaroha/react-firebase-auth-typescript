@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
- 
+
 import { withFirebase } from '../Firebase';
 
 type IPasswordChangeState = {
-  passwordOne: string,
-  passwordTwo: string,
+  passwordOne: string;
+  passwordTwo: string;
   error: {
-    message: string
-  } | null,
-}
+    message: string;
+  } | null;
+};
 
 const INITIAL_STATE: IPasswordChangeState = {
   passwordOne: '',
   passwordTwo: '',
   error: null,
 };
- 
+
 class PasswordChangeForm extends Component<any, IPasswordChangeState> {
   constructor(props: any) {
     super(props);
- 
+
     this.state = { ...INITIAL_STATE };
   }
- 
+
   onSubmit = (event: any) => {
     const { passwordOne } = this.state;
- 
+
     this.props.firebase
       .doPasswordUpdate(passwordOne)
       .then(() => {
@@ -34,20 +34,21 @@ class PasswordChangeForm extends Component<any, IPasswordChangeState> {
       .catch((error: any) => {
         this.setState({ error });
       });
- 
+
     event.preventDefault();
   };
- 
+
   onChange = (event: any) => {
-    this.setState({ [event.target.name]: event.target.value } as IPasswordChangeState);
+    this.setState({
+      [event.target.name]: event.target.value,
+    } as IPasswordChangeState);
   };
- 
+
   render() {
     const { passwordOne, passwordTwo, error } = this.state;
- 
-    const isInvalid =
-      passwordOne !== passwordTwo || passwordOne === '';
- 
+
+    const isInvalid = passwordOne !== passwordTwo || passwordOne === '';
+
     return (
       <form onSubmit={this.onSubmit}>
         <input
@@ -67,11 +68,11 @@ class PasswordChangeForm extends Component<any, IPasswordChangeState> {
         <button disabled={isInvalid} type="submit">
           Reset My Password
         </button>
- 
+
         {error && <p>{error.message}</p>}
       </form>
     );
   }
 }
- 
+
 export default withFirebase(PasswordChangeForm);

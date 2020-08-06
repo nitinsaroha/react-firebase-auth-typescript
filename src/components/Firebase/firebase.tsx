@@ -14,6 +14,7 @@ const config = {
 
 class Firebase {
   auth: firebase.auth.Auth;
+
   db: firebase.firestore.Firestore;
 
   constructor() {
