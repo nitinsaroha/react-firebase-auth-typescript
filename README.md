@@ -16,6 +16,7 @@
   * Sign In
   * Sign Up
   * Sign Out
+  * 404 Redirect
   * Password Forget
   * Password Change
   * Protected Routes with Authorization
