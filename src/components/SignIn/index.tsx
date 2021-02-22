@@ -7,15 +7,6 @@ import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
-const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <PasswordForgetLink />
-    <SignUpLink />
-  </div>
-);
-
 interface State {
   email: string;
   password: string;
@@ -89,6 +80,15 @@ class SignInFormBase extends Component<any, State> {
 }
 
 const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
+
+const SignInPage = () => (
+  <div>
+    <h1>SignIn</h1>
+    <SignInForm />
+    <PasswordForgetLink />
+    <SignUpLink />
+  </div>
+);
 
 export default SignInPage;
 
