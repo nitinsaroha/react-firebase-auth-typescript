@@ -5,13 +5,6 @@ import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
-const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
-  </div>
-);
-
 interface State {
   username: string;
   email: string;
@@ -40,6 +33,7 @@ class SignUpFormBase extends Component<any, State> {
   onSubmit = (event: any) => {
     const { username, email, passwordOne } = this.state;
 
+    // eslint-disable-line no-unused-vars
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser: any) => {
@@ -49,7 +43,7 @@ class SignUpFormBase extends Component<any, State> {
           email,
         });
       })
-      .then((authUser: any) => {
+      .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.HOME);
       })
@@ -120,6 +114,13 @@ const SignUpLink = () => (
 );
 
 const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
+
+const SignUpPage = () => (
+  <div>
+    <h1>SignUp</h1>
+    <SignUpForm />
+  </div>
+);
 
 export default SignUpPage;
 
